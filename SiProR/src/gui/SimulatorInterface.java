@@ -10,14 +10,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class RunSimulator{
-	public static void main(String[] args) {
-        // Create a new SimulatorInterface
-        new SimulatorInterface();
-    }
-}
 
-class SimulatorInterface extends JFrame{
+public class SimulatorInterface extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	/*Main Panels*/

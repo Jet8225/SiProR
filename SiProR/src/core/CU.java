@@ -1,5 +1,6 @@
 package core;
 
+import gui.SimulatorInterface;
 import instructionSet.DataMovement;
 
 /* This class contains the memory of the microprocessor,
@@ -39,22 +40,23 @@ public class CU {
 	
 	public static void main (String args[]) {
 		
-		/* llamar el gui */
+		// Create a new SimulatorInterface
+        new SimulatorInterface();
 		
 		
 		/* cuando se haga load leer el file y pasar a memoria */
 		
 		
 		/* cuando haga run o step */
-		/* se hace una condición para determinar si está en step o run*/
+		/* se hace una condiciï¿½n para determinar si estï¿½ en step o run*/
 		
 		while(true) {
 			fetch(pc);
-			/* action listener dentro de una condición */
+			/* action listener dentro de una condiciï¿½n */
 			decode(ir);
 			/* action listener dentro de una condicion */
 			execute();
-			/* action listener dentro de una condición */ 
+			/* action listener dentro de una condiciï¿½n */ 
 		}
 	}
 	
