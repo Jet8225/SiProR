@@ -22,7 +22,7 @@ public class DataMovement {
 		CU.mem[memIndex] = CU.reg[regNumber];
 	}
 	
-	public static void stadcc(int memIndex) {
+	public static void stacc(int memIndex) {
 		CU.mem[memIndex] = CU.reg[1];
 	}
 	

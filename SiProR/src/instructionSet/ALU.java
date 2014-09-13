@@ -7,5 +7,7 @@ package instructionSet;
  * the registers.
  */
 public class ALU {
-	
+	public static void shr(String ra, String rb, int rc) {
+		
+	}
 }

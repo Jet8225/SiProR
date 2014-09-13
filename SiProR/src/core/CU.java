@@ -1,4 +1,7 @@
 package core;
+
+import instructionSet.DataMovement;
+
 /* This class contains the memory of the microprocessor,
  * the registers R0-R7, and the condition variable, program
  * counter and instruction register. 
@@ -209,25 +212,25 @@ public class CU {
 	
 	static void execute() {
 		if(Integer.parseInt(opCode, 2)==0) {
-			
+			DataMovement.ld(Integer.parseInt(Ra,2), Integer.parseInt(address,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==1) {
-			
+			DataMovement.ldi(Integer.parseInt(Ra,2), Integer.parseInt(constant,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==2) {
-			
+			DataMovement.ldacc(Integer.parseInt(constant,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==3) {
-			
+			DataMovement.st(Integer.parseInt(address), Integer.parseInt(Ra,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==4) {
-			
+			DataMovement.stacc(Integer.parseInt(address,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==5) {
-			
+			DataMovement.ldr(Integer.parseInt(Ra,2), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==6) {
-			
+			DataMovement.str(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==7) {
 			
