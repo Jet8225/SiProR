@@ -2,36 +2,36 @@ package instructionSet;
 /* This class will contain instructions that move 
  * data into registers or into memory. 
  */
-import core.MemAndRegs;
+import core.CU;
 
 public class DataMovement {
 	
-	public static void load(int regNumber, int memIndex) {
-		MemAndRegs.reg[regNumber] = MemAndRegs.mem[memIndex];	
+	public static void ld(int regNumber, int memIndex) {
+		CU.reg[regNumber] = CU.mem[memIndex];	
 	}
 	
-	public static void loadImmediate(int regNumber, int constant) {
-		MemAndRegs.reg[regNumber] = constant;
+	public static void ldi(int regNumber, int constant) {
+		CU.reg[regNumber] = constant;
 	}
 	
-	public static void loadAcc(int constant) {
-		MemAndRegs.reg[1] = constant;
+	public static void ldacc(int constant) {
+		CU.reg[1] = constant;
 	}
 	
-	public static void store(int memIndex, int regNumber) {
-		MemAndRegs.mem[memIndex] = MemAndRegs.reg[regNumber];
+	public static void st(int memIndex, int regNumber) {
+		CU.mem[memIndex] = CU.reg[regNumber];
 	}
 	
-	public static void storeAcc(int memIndex) {
-		MemAndRegs.mem[memIndex] = MemAndRegs.reg[1];
+	public static void stadcc(int memIndex) {
+		CU.mem[memIndex] = CU.reg[1];
 	}
 	
-	public static void loadR(int regNumber, int memIndex) {
-		MemAndRegs.reg[regNumber] = MemAndRegs.mem[memIndex];
+	public static void ldr(int regNumber, int memIndex) {
+		CU.reg[regNumber] = CU.mem[memIndex];
 	}
 	
-	public static void storeR(int memIndex, int regNumber) {
-		MemAndRegs.mem[memIndex] = MemAndRegs.reg[regNumber];
+	public static void str(int memIndex, int regNumber) {
+		CU.mem[memIndex] = CU.reg[regNumber];
 	}
 	
 }
