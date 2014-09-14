@@ -152,5 +152,4 @@ public class JumpsControl {
 	public static void stop(){
 		System.exit(0);     // Immediately stops execution of the program.
 	}
-	
 }
