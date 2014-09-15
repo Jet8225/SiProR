@@ -79,14 +79,14 @@ public class JumpsControl {
 	 * is greater than the second register (in the second parameter).
 	 * Returns false if it's not greater.
 	 */
-	public static boolean gr(int regNumber1, int regNumber2){
+	public static void gr(int regNumber1, int regNumber2){
 		if(CU.reg[regNumber1] > CU.reg[regNumber2]) // If the value in register1 is greater than the value in register2...
 		{											
-			return true;
+			CU.cond = 1;
 		}
 		else										// Otherwise...
 		{
-			return false;
+			CU.cond = 0;
 		}
 	}
 	
@@ -95,13 +95,14 @@ public class JumpsControl {
 	 * is greater or equal to the second register (in the second parameter).
 	 * Returns false if both conditions are not true.
 	 */
-	public static boolean gre(int regNumber1, int regNumber2){
-		if(CU.reg[regNumber1] > CU.reg[regNumber2] | eq(regNumber1,regNumber2) == true)
+	public static void gre(int regNumber1, int regNumber2){
+		if(CU.reg[regNumber1] > CU.reg[regNumber2] | CU.reg[regNumber1] == CU.reg[regNumber2])
 		{
-			return true;		// Return true if only one of the two conditions is met.
+			CU.cond = 1;		// Return true if only one of the two conditions is met.
 		}
-		else{
-			return false;
+		else
+		{
+			CU.cond = 0;
 		}
 	}
 	
@@ -109,14 +110,14 @@ public class JumpsControl {
 	 * This method checks if two registers are equal.
 	 * Returns false if they are not.
 	 */
-	public static boolean eq(int regNumber1, int regNumber2){
+	public static void eq(int regNumber1, int regNumber2){
 		if(CU.reg[regNumber1] == (CU.reg[regNumber2]))  // If the value in register1 is the same as the value of register2...
 		{												
-			return true;
+			CU.cond = 1;
 		}
 		else											// Otherwise...
 		{
-			return false;
+			CU.cond = 0;
 		}
 	}
 	
@@ -124,14 +125,14 @@ public class JumpsControl {
 	 * This method checks if two registers are not equal.
 	 * Returns false if they are equal.
 	 */
-	public static boolean neq(int regNumber1, int regNumber2){
-		if(eq(regNumber1, regNumber2) != true)  // Call "eq" function (a bit of recursion so to speak).
+	public static void neq(int regNumber1, int regNumber2){
+		if(CU.reg[regNumber1] != CU.reg[regNumber2])  // Call "eq" function (a bit of recursion so to speak).
 		{										
-			return true;						// If the "eq" function returns false, then "neq" is true.
+			CU.cond = 1;						// If the "eq" function returns false, then "neq" is true.
 		}
 		else									// Otherwise...
 		{
-			return false;
+			CU.cond = 0;
 		}
 	}
 	
