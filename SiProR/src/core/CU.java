@@ -1,13 +1,15 @@
 package core;
 
-import gui.SimulatorInterface;
+import instructionSet.ALU;
 import instructionSet.DataMovement;
+import instructionSet.JumpsControl;
 
 /* This class contains the memory of the microprocessor,
  * the registers R0-R7, and the condition variable, program
  * counter and instruction register. 
  */
-public class CU {
+
+public class CU{
 	/* indice 0 es para el programa
 	 * indice 128 para el teclado
 	 * indice 130 para entrada paralela
@@ -38,39 +40,38 @@ public class CU {
 	private static String address="";
 	private static String constant="";
 	
-	public static void main (String args[]) {
-		
-		// Create a new SimulatorInterface
-        new SimulatorInterface();
-		
-		
-		/* cuando se haga load leer el file y pasar a memoria */
-		
-		
-		/* cuando haga run o step */
-		/* se hace una condici�n para determinar si est� en step o run*/
-		
-		while(true) {
-			fetch(pc);
-			/* action listener dentro de una condici�n */
-			decode(ir);
-			/* action listener dentro de una condicion */
-			execute();
-			/* action listener dentro de una condici�n */ 
+	public CU(String op){
+		if(op.equals("Run")){
+			//Run: While(instruccciones) fetch, decode, execute;
+			
+		}
+		else if(op.equals("Step")){
+			
 		}
 	}
 	
 	
 	static void fetch (int pc) {
 		String corrector = "";
-		String instruction = Integer.toBinaryString(mem[pc]);
+		String instruction1 = Integer.toBinaryString(mem[pc]);
+		String instruction2 = Integer.toBinaryString(mem[pc+1]);
 		
-		if(instruction.length() != 16) {
-			for(int i=0; i<16-instruction.length(); i++) {
+		if(instruction1.length() != 16) {
+			for(int i=0; i<16-instruction1.length(); i++) {
 				corrector= corrector+0; 
 			}
 		}
-		ir = corrector + instruction;
+		instruction1 = corrector + instruction1;
+		corrector = "";
+		
+		if(instruction2.length() != 16) {
+			for(int i=0; i<16-instruction2.length(); i++) {
+				corrector= corrector+0; 
+			}
+		}
+		instruction2 = corrector +instruction2;
+		
+		ir = instruction1+instruction2;
 	}
 	
 	static void decode (String ir) {
@@ -235,31 +236,31 @@ public class CU {
 			DataMovement.str(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==7) {
-			
+			ALU.add(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
 		}
 		else if(Integer.parseInt(opCode, 2)==8) {
-			
+			ALU.sub(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
 		}
 		else if(Integer.parseInt(opCode, 2)==9) {
-			
+			ALU.adi(Integer.parseInt(Ra), Integer.parseInt(constant));
 		}
 		else if(Integer.parseInt(opCode, 2)==10) {
-			
+			ALU.sbi(Integer.parseInt(Ra), Integer.parseInt(constant));
 		}
 		else if(Integer.parseInt(opCode, 2)==11) {
-			
+			ALU.and(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
 		}
 		else if(Integer.parseInt(opCode, 2)==12) {
-			
+			ALU.or(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
 		}
 		else if(Integer.parseInt(opCode, 2)==13) {
-			
+			ALU.xor(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
 		}
 		else if(Integer.parseInt(opCode, 2)==14) {
-			
+			ALU.not(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==15) {
-			
+			ALU.neg(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==16) {
 			
@@ -274,37 +275,37 @@ public class CU {
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==20) {
-			
+			JumpsControl.jmpr(Integer.parseInt(Ra));
 		}
 		else if(Integer.parseInt(opCode, 2)==21) {
-			
+			JumpsControl.jmpa(Integer.parseInt(address));
 		}
 		else if(Integer.parseInt(opCode, 2)==22) {
-			
+			JumpsControl.jcr(Integer.parseInt(Ra));
 		}
 		else if(Integer.parseInt(opCode, 2)==23) {
-			
+			JumpsControl.jca(Integer.parseInt(address));
 		}
 		else if(Integer.parseInt(opCode, 2)==24) {
-			
+			JumpsControl.loop(Integer.parseInt(Ra), Integer.parseInt(address));
 		}
 		else if(Integer.parseInt(opCode, 2)==25) {
-			
+			JumpsControl.gr(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==26) {
-			
+			JumpsControl.gre(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==27) {
-			
+			JumpsControl.eq(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==28) {
-			
+			JumpsControl.neq(Integer.parseInt(Ra), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==29) {
-			
+			JumpsControl.nop();
 		}
 		else if(Integer.parseInt(opCode, 2)==30) {
-			
+			JumpsControl.stop();
 		}
 	}
 	
