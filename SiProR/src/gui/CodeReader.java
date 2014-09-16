@@ -37,13 +37,13 @@ public class CodeReader implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(!fileName.equals("")){
 			try{
-				File folder = new File("/Users/Jesus/SiProR rep/SiProR/Files");
+				File folder = new File("/Users/Keysha_Minel/git/SiProR/SiProR/Files");
 					
 				File[] listOfFiles = folder.listFiles();
 					
 				for(int i = 0; i < listOfFiles.length; i++){
 					String filename = listOfFiles[i].getName();
-					    
+					
 					if(filename.equals(fileName)){
 						try
 						{
@@ -55,6 +55,7 @@ public class CodeReader implements ActionListener{
 					    		this.code.add(line);
 					    	}
 					    	reader.close();
+					    	break;
 					    }
 					    catch (Exception ex)
 					    {
@@ -62,6 +63,7 @@ public class CodeReader implements ActionListener{
 					    	ex.printStackTrace();
 					    }
 					}
+
 					else{
 						error = true;
 					}

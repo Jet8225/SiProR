@@ -216,16 +216,7 @@ class SimulatorInterface extends JFrame implements ActionListener{
 					else{
 						upload_file.dispose();
 						
-						String[][] temp_mem = new String[uploader.getSize()][2];
-						
-						for(int i = 0; i < uploader.getSize(); i++){
-							for(int j = 0; j < 2; j++){
-								temp_mem[i][j] = this.mem_data[i][j];
-							}
-						}
-						
-						this.mem_data = temp_mem; 
-						
+						upload_file.dispose();
 						Memory.CopyToMemory(uploader, this.mem_data);
 						Memory.setDisplayMemory(this.mem_data);
 						
