@@ -215,51 +215,11 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		this.per_panel.add(new JLabel("H-Disp"));
 		this.per_panel.add(h_disp);
 		
-		
 		this.per_panel.add(new JLabel("Parallel in"));
-		
-		parallel_in.addKeyListener(new KeyListener(){
-			
-			public void keyPressed(KeyEvent e){
-				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					String temp = parallel_in.getText();
-				}
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		parallel_in.setEditable(false);
 		this.per_panel.add(parallel_in);
 		
-		this.parallel_out.addKeyListener(new KeyListener(){
-			
-			public void keyPressed(KeyEvent e){
-				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					
-				}
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		this.parallel_out.setEditable(false);
 		this.per_panel.add(new JLabel("Parallel out"));
 		this.per_panel.add(parallel_out);
 	}
@@ -322,7 +282,7 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		
 		if( e.getSource() == this.load ){
 			this.PopUp();
-
+			
 			this.run.setEnabled(true);
 			this.step.setEnabled(true);
 		
@@ -342,6 +302,9 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 						upload_file.dispose();
 						Memory.CopyToMemory(uploader, this.mem_data);
 						Memory.setDisplayMemory(this.mem_data);
+						
+						parallel_in.setText(mem_data[65][1]);
+						parallel_out.setText(mem_data[66][1]);
 						
 						this.memory.revalidate();
 					}
@@ -391,7 +354,7 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		
 		upload_file = new JFrame();;
 		fileName = new JTextField();
-		JLabel instruction = new JLabel("Enter the file name:");
+		JLabel instruction = new JLabel("Enter the file location:");
 		JPanel main_panel = new JPanel(new GridLayout(3,1,5,5));
 		JPanel buttons = new JPanel(new GridLayout(1,2,5,5));
 		
