@@ -37,7 +37,7 @@ public class CodeReader implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(!fileName.equals("")){
 			try{
-				File folder = new File("C:/Users/Jesus/SiProR rep/SiProR/Files");
+				File folder = new File("/Users/Jesus/SiProR rep/SiProR/Files");
 					
 				File[] listOfFiles = folder.listFiles();
 					
