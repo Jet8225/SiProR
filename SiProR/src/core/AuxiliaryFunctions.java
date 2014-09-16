@@ -1,3 +1,4 @@
+
 package core;
 /* This class will contain some functions 
  * that help with other functions. For example 
