@@ -73,6 +73,7 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 	private JTextField fileName;
 	private JButton read = new JButton("Read");
 	private JButton cancel = new JButton("Cancel");
+	private CodeReader uploader;
 	
 	/*Interface with the Control Unit*/
 	CU controlUnit;
@@ -126,7 +127,7 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 	
 	private String addZeros(String s){
 		for(int i = 0; i < s.length(); i++){	
-			s = ("00" + s).substring(s.length());
+			s = ("0000" + s).substring(s.length());
 		}
 		return s;
 	}
@@ -138,19 +139,22 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		this.per_panel.setBorder(new EmptyBorder(0,0,10,0));
 		
 		
+		this.keyb.setEditable(false);
+		
 		this.keyb.addKeyListener(new KeyListener(){
 
             public void keyPressed(KeyEvent e){
             	if(e.getKeyCode() == KeyEvent.VK_ENTER){
             		String temp = keyb.getText();
             		
-            		System.out.println(keyb.getText());
-            		
-            		if(temp.length() < 8){
+            		if(temp.length() < 4){
             			temp = addZeros(temp);
             		}
-            		mem_data[64][1] = temp.substring(0,7);
-            		//Cambiar Array de Ints
+            		mem_data[64][1] = temp;
+            		
+            		parallel_in.setText(mem_data[65][1]);
+					parallel_out.setText(mem_data[66][1]);
+					memory.revalidate();
             	}
             }
 
@@ -189,29 +193,11 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 				
 			}
 		});
+		this.a_disp.setEnabled(false);
 		this.per_panel.add(new JLabel("A-Disp"));
 		this.per_panel.add(a_disp);
 		
-		this.h_disp.addKeyListener(new KeyListener(){
-			
-			public void keyPressed(KeyEvent e){
-				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					
-				}
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		this.h_disp.setEditable(false);
 		this.per_panel.add(new JLabel("H-Disp"));
 		this.per_panel.add(h_disp);
 		
@@ -278,7 +264,7 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 	 * This method is in charge of giving functionalities to the buttons that the user uses to run the program.
 	 */
 	public void actionPerformed(ActionEvent e) {
-		CodeReader uploader = new CodeReader();
+		uploader = new CodeReader();
 		
 		if( e.getSource() == this.load ){
 			this.PopUp();
@@ -298,15 +284,14 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 					
 					if(uploader.fileExist()){
 						upload_file.dispose();
-						
-						upload_file.dispose();
 						Memory.CopyToMemory(uploader, this.mem_data);
 						Memory.setDisplayMemory(this.mem_data);
 						
 						parallel_in.setText(mem_data[65][1]);
 						parallel_out.setText(mem_data[66][1]);
-						
 						this.memory.revalidate();
+						
+						this.keyb.setEditable(true);
 					}
 					else{
 						JOptionPane.showMessageDialog(upload_file, "No such file in directory.");
