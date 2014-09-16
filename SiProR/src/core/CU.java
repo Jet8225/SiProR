@@ -298,13 +298,13 @@ public class CU{
 			ALU.shr(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==17) {
-			
+			ALU.shl(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==18) {
-			
+			ALU.rtr(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==19) {
-			
+			ALU.rtl(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==20) {
 			JumpsControl.jmpr(Integer.parseInt(Ra,2));

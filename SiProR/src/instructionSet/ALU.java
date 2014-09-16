@@ -128,7 +128,7 @@ public class ALU {
 		
 		RB = corrector + RB;
 		
-		for(int i=0; i<rc; i++) {
+		for(int i=0; i<CU.reg[rc]; i++) {
 			RB = 1+RB;
 		}
 		RB = RB.substring(0,7);
@@ -148,7 +148,7 @@ public class ALU {
 		
 		RB = corrector + RB;
 		
-		for(int i=0; i<rc; i++) {
+		for(int i=0; i<CU.reg[rc]; i++) {
 			RB = RB+0;
 		}
 		
@@ -158,6 +158,46 @@ public class ALU {
 	}
 	
 	public static void rtr(int ra, int rb, int rc) {
+		String corrector = "";
+		String RB = Integer.toBinaryString(CU.reg[rb]);
+		char temp;
 		
+		if(RB.length() != 8) {
+			for(int i=0; i<8-RB.length(); i++) {
+				corrector= corrector+0; 
+			}
+		}
+		
+		RB = corrector + RB;
+		
+		for(int i=0; i<CU.reg[rc]; i++) {
+			temp = RB.charAt(7);
+			RB = temp+RB;
+		}
+		
+		RB = RB.substring(0,7);
+		
+		CU.reg[ra] = Integer.parseInt(RB,2);
+	}
+	
+	public static void rtl(int ra, int rb, int rc) {
+		String corrector = "";
+		String RB = Integer.toBinaryString(CU.reg[rb]);
+		char temp;
+		
+		if(RB.length() != 8) {
+			for(int i=0; i<8-RB.length(); i++) {
+				corrector= corrector+0; 
+			}
+		}
+		
+		RB = corrector + RB;
+		
+		for(int i=0; i<CU.reg[rc];i++) {
+			temp = RB.charAt(0);
+			RB = RB.substring(1) +temp;
+		}
+		
+		CU.reg[ra] = Integer.parseInt(RB,2);
 	}
 }
