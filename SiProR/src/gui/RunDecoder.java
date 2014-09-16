@@ -115,6 +115,8 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		for(int i = 0; i < this.regs.length; i++){
 			this.regs[i] = new JTextField();
 		}
+		this.regs[0].setEditable(false);
+		this.regs[1].setEditable(false);
 		this.reg_panel.add(new JLabel("PC"));
 		this.reg_panel.add(this.regs[0]);
 		this.reg_panel.add(new JLabel("IR"));
