@@ -22,6 +22,7 @@ public class Registers {
 		results.add(instruc_r);
 		
 		for(int i = 0; i < regis.length; i++){
+			System.out.println(regis[i]);
 			results.add("" + regis[i]);
 		}
 		

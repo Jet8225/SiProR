@@ -53,9 +53,11 @@ public class CU{
 	}
 	
 	public void copyData(String[][] sMem, int[] nMem){
-        for(int i = 0; i < sMem.length && i < nMem.length;i+=2){
-            nMem[i] = Integer.parseInt(sMem[i][1].substring(0,1),16);
-            nMem[i+1] = Integer.parseInt(sMem[i][1].substring(2,3),16);
+        for(int i = 0, j = 0; j < sMem.length && i < nMem.length;i+=2, j++){
+        	if(!sMem[j][1].isEmpty()){
+        		nMem[i] = Integer.parseInt(sMem[j][1].substring(0,1),16);
+                nMem[i+1] = Integer.parseInt(sMem[j][1].substring(2,3),16);
+        	}
         }
         mem = nMem;
     }
@@ -67,10 +69,15 @@ public class CU{
 	public static List<String> executeCode(String op){
 		if(op.equals("Run")){
 			int i = 0;
-			while( i < mem_data.length ){
-				CU.fetch(pc);
-				CU.decode(ir);
-				CU.execute();
+			while( i < mem.length ){
+				if(pc<2000){
+					CU.fetch(pc);
+					CU.decode(ir);
+					CU.execute();
+				}
+				else{
+					break;
+				}
 				i++;
 			}
 			
@@ -91,30 +98,31 @@ public class CU{
 	}
 	
 	static void fetch (int pc) {
-		String corrector = "";
-		String instruction1 = Integer.toBinaryString(mem[pc]);
-		String instruction2 = Integer.toBinaryString(mem[pc+1]);
-		
-		if(instruction1.length() != 8) {
-			for(int i=0; i<8-instruction1.length(); i++) {
-				corrector= corrector+0; 
+		if(pc<2000){
+			String corrector = "";
+			String instruction1 = Integer.toBinaryString(mem[pc]);
+			String instruction2 = Integer.toBinaryString(mem[pc+1]);
+			
+			if(instruction1.length() != 8) {
+				for(int i=0; i<8-instruction1.length(); i++) {
+					corrector= corrector+0; 
+				}
 			}
-		}
-		instruction1 = corrector + instruction1;
-		corrector = "";
-		
-		if(instruction2.length() != 8) {
-			for(int i=0; i<8-instruction2.length(); i++) {
-				corrector= corrector+0; 
+			instruction1 = corrector + instruction1;
+			corrector = "";
+			
+			if(instruction2.length() != 8) {
+				for(int i=0; i<8-instruction2.length(); i++) {
+					corrector= corrector+0; 
+				}
 			}
+			instruction2 = corrector +instruction2;
+			
+			ir = instruction1+instruction2;
 		}
-		instruction2 = corrector +instruction2;
-		
-		ir = instruction1+instruction2;
 	}
 	
 	static void decode (String ir) {
-		// increment program counter
 		pc +=2;
 		
 		opCode = ir.substring(0,4);
