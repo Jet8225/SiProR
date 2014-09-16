@@ -116,7 +116,48 @@ public class ALU {
 		CU.reg[regNumber] = (-1)*CU.reg[regNumber2];
 	}
 	
-	public static void shr(String ra, String rb, int rc) {
+	public static void shr(int ra, int rb, int rc) {
+		String corrector = "";
+		String RB = Integer.toBinaryString(CU.reg[rb]);
+		
+		if(RB.length() != 8) {
+			for(int i=0; i<8-RB.length(); i++) {
+				corrector= corrector+0; 
+			}
+		}
+		
+		RB = corrector + RB;
+		
+		for(int i=0; i<rc; i++) {
+			RB = 1+RB;
+		}
+		RB = RB.substring(0,7);
+		
+		CU.reg[ra] = Integer.parseInt(RB,2);
+	}
+	
+	public static void shl(int ra, int rb, int rc) {
+		String corrector = "";
+		String RB = Integer.toBinaryString(CU.reg[rb]);
+		
+		if(RB.length() != 8) {
+			for(int i=0; i<8-RB.length(); i++) {
+				corrector= corrector+0; 
+			}
+		}
+		
+		RB = corrector + RB;
+		
+		for(int i=0; i<rc; i++) {
+			RB = RB+0;
+		}
+		
+		RB = RB.substring(RB.length()-9, RB.length()-1);
+		
+		CU.reg[ra] = Integer.parseInt(RB,2);
+	}
+	
+	public static void rtr(int ra, int rb, int rc) {
 		
 	}
 }

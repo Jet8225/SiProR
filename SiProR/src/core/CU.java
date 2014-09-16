@@ -56,16 +56,16 @@ public class CU{
 		String instruction1 = Integer.toBinaryString(mem[pc]);
 		String instruction2 = Integer.toBinaryString(mem[pc+1]);
 		
-		if(instruction1.length() != 16) {
-			for(int i=0; i<16-instruction1.length(); i++) {
+		if(instruction1.length() != 8) {
+			for(int i=0; i<8-instruction1.length(); i++) {
 				corrector= corrector+0; 
 			}
 		}
 		instruction1 = corrector + instruction1;
 		corrector = "";
 		
-		if(instruction2.length() != 16) {
-			for(int i=0; i<16-instruction2.length(); i++) {
+		if(instruction2.length() != 8) {
+			for(int i=0; i<8-instruction2.length(); i++) {
 				corrector= corrector+0; 
 			}
 		}
@@ -206,10 +206,10 @@ public class CU{
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==29) {
-			
+			;
 		}
 		else if(Integer.parseInt(opCode, 2)==30) {
-			
+			;
 		}
 	}
 	
@@ -224,7 +224,7 @@ public class CU{
 			DataMovement.ldacc(Integer.parseInt(constant,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==3) {
-			DataMovement.st(Integer.parseInt(address), Integer.parseInt(Ra,2));
+			DataMovement.st(Integer.parseInt(address,2), Integer.parseInt(Ra,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==4) {
 			DataMovement.stacc(Integer.parseInt(address,2));
@@ -233,37 +233,37 @@ public class CU{
 			DataMovement.ldr(Integer.parseInt(Ra,2), Integer.parseInt(Rb));
 		}
 		else if(Integer.parseInt(opCode, 2)==6) {
-			DataMovement.str(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			DataMovement.str(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==7) {
-			ALU.add(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
+			ALU.add(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==8) {
-			ALU.sub(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
+			ALU.sub(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==9) {
-			ALU.adi(Integer.parseInt(Ra), Integer.parseInt(constant));
+			ALU.adi(Integer.parseInt(Ra,2), Integer.parseInt(constant,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==10) {
-			ALU.sbi(Integer.parseInt(Ra), Integer.parseInt(constant));
+			ALU.sbi(Integer.parseInt(Ra,2), Integer.parseInt(constant,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==11) {
-			ALU.and(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
+			ALU.and(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==12) {
-			ALU.or(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
+			ALU.or(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==13) {
-			ALU.xor(Integer.parseInt(Ra), Integer.parseInt(Rb), Integer.parseInt(Rc));
+			ALU.xor(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==14) {
-			ALU.not(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			ALU.not(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==15) {
-			ALU.neg(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			ALU.neg(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==16) {
-			
+			ALU.shr(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2), Integer.parseInt(Rc,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==17) {
 			
@@ -275,31 +275,31 @@ public class CU{
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==20) {
-			JumpsControl.jmpr(Integer.parseInt(Ra));
+			JumpsControl.jmpr(Integer.parseInt(Ra,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==21) {
-			JumpsControl.jmpa(Integer.parseInt(address));
+			JumpsControl.jmpa(Integer.parseInt(address,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==22) {
-			JumpsControl.jcr(Integer.parseInt(Ra));
+			JumpsControl.jcr(Integer.parseInt(Ra,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==23) {
-			JumpsControl.jca(Integer.parseInt(address));
+			JumpsControl.jca(Integer.parseInt(address,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==24) {
-			JumpsControl.loop(Integer.parseInt(Ra), Integer.parseInt(address));
+			JumpsControl.loop(Integer.parseInt(Ra,2), Integer.parseInt(address,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==25) {
-			JumpsControl.gr(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			JumpsControl.gr(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==26) {
-			JumpsControl.gre(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			JumpsControl.gre(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==27) {
-			JumpsControl.eq(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			JumpsControl.eq(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==28) {
-			JumpsControl.neq(Integer.parseInt(Ra), Integer.parseInt(Rb));
+			JumpsControl.neq(Integer.parseInt(Ra,2), Integer.parseInt(Rb,2));
 		}
 		else if(Integer.parseInt(opCode, 2)==29) {
 			JumpsControl.nop();
