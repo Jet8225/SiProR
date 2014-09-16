@@ -3,6 +3,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,7 +36,7 @@ public class RunDecoder {
  * @author Keysha Gonzalez
  *
  */
-class SimulatorInterface extends JFrame implements ActionListener{
+class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	/*Main Panels*/
@@ -126,14 +129,115 @@ class SimulatorInterface extends JFrame implements ActionListener{
 	 */
 	private void peripherals(){
 		this.per_panel.setBorder(new EmptyBorder(0,0,10,0));
+		
+		
+		this.keyb.addKeyListener(new KeyListener(){
+
+            public void keyPressed(KeyEvent e){
+            	if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            		String temp = keyb.getText();
+            		mem_data[64][1] = temp.substring(0,7);
+            		
+            		//Cambiar Array de Ints
+            	}
+            }
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}});
+		
 		this.per_panel.add(new JLabel("Keyb"));
 		this.per_panel.add(keyb);
+		
+		a_disp.addKeyListener(new KeyListener(){
+			
+			public void keyPressed(KeyEvent e){
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		this.per_panel.add(new JLabel("A-Disp"));
 		this.per_panel.add(a_disp);
+		
+		this.h_disp.addKeyListener(new KeyListener(){
+			
+			public void keyPressed(KeyEvent e){
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		this.per_panel.add(new JLabel("H-Disp"));
 		this.per_panel.add(h_disp);
 		this.per_panel.add(new JLabel("Parallel in"));
+		
+		parallel_in.addKeyListener(new KeyListener(){
+			
+			public void keyPressed(KeyEvent e){
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		this.per_panel.add(parallel_in);
+		
+		this.parallel_out.addKeyListener(new KeyListener(){
+			
+			public void keyPressed(KeyEvent e){
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		this.per_panel.add(new JLabel("Parallel out"));
 		this.per_panel.add(parallel_out);
 	}
@@ -288,5 +392,23 @@ class SimulatorInterface extends JFrame implements ActionListener{
 		upload_file.setResizable(false);
 		upload_file.setVisible(true);
 		upload_file.setMinimumSize(new Dimension(300,200));
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
