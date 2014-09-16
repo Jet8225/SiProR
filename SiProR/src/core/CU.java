@@ -1,8 +1,6 @@
 package core;
 
 import java.util.List;
-
-import gui.RunDecoder;
 import instructionSet.ALU;
 import instructionSet.DataMovement;
 import instructionSet.JumpsControl;
@@ -48,9 +46,16 @@ public class CU{
 	private static String address="";
 	private static String constant="";
 	
-	public CU(String op,String[][] mem){
-		this.mem_data = mem;
+	public CU(String op,String[][] mems){
+		this.mem_data = mems;
+		this.copyData(mems, mem);
 		this.results = CU.executeCode(op);
+	}
+	
+	public void copyData(String[][] sMem, int[] nMem){
+		for(int i = 0; i < sMem.length && i < nMem.length;i++){
+			nMem[i] = Integer.parseInt(sMem[i][1],16);
+		}
 	}
 	
 	public List<String> getResults(){
