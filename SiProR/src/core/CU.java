@@ -53,10 +53,12 @@ public class CU{
 	}
 	
 	public void copyData(String[][] sMem, int[] nMem){
-		for(int i = 0; i < sMem.length && i < nMem.length;i++){
-			nMem[i] = Integer.parseInt(sMem[i][1],16);
-		}
-	}
+        for(int i = 0; i < sMem.length && i < nMem.length;i+=2){
+            nMem[i] = Integer.parseInt(sMem[i][1].substring(0,1),16);
+            nMem[i+1] = Integer.parseInt(sMem[i][1].substring(2,3),16);
+        }
+        mem = nMem;
+    }
 	
 	public List<String> getResults(){
 		return this.results;
