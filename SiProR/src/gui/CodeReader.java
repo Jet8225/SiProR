@@ -8,14 +8,16 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 /**
  * This class is in charge of opening and managing the files.
  * @author Keysha Gonzalez
  * */
 
 public class CodeReader implements ActionListener{
-	private String fileName;
-	private Boolean error = false;
+	private String fileDirectory;
+	private Boolean exist = false;
 	private List<String> code = new ArrayList<String>();
 	
 	public CodeReader(){
@@ -26,8 +28,8 @@ public class CodeReader implements ActionListener{
 	 * Specifies the name of the file to be read.
 	 * @param fileName
 	 */
-	public void setFileName(String fileName){
-		this.fileName = fileName;
+	public void setFileDirectory(String fileDirectory){
+		this.fileDirectory = fileDirectory;
 	}
 
 	/**
@@ -35,52 +37,34 @@ public class CodeReader implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(!fileName.equals("")){
+		if(!fileDirectory.equals("") && fileDirectory != null){
 			try{
-				File folder = new File("/Users/Keysha_Minel/git/SiProR/SiProR/Files");
+				File folder = new File(fileDirectory);
+				try
+				{
+					BufferedReader reader = new BufferedReader(new FileReader(folder.getPath()));
+					String line;
 					
-				File[] listOfFiles = folder.listFiles();
-					
-				for(int i = 0; i < listOfFiles.length; i++){
-					String filename = listOfFiles[i].getName();
-					
-					if(filename.equals(fileName)){
-						try
-						{
-							BufferedReader reader = new BufferedReader(new FileReader(folder.getPath()+"/"+filename));
-					    	String line;
-					    	    
-					    	while ((line = reader.readLine()) != null)
-					    	{
-					    		this.code.add(line);
-					    	}
-					    	reader.close();
-					    	break;
-					    }
-					    catch (Exception ex)
-					    {
-					    	System.err.format("Exception occurred trying to read '%s'.", fileName);
-					    	ex.printStackTrace();
-					    }
+					while ((line = reader.readLine()) != null)
+					{
+						this.code.add(line);
 					}
-
-					else{
-						error = true;
-					}
+					reader.close();
+					exist = true;
 				}
+			    catch (Exception ex)
+			    {
+			    	System.err.format("Exception occurred trying to read the file.");
+			    }
 			}
 			catch(Exception ex){
-				ex.printStackTrace();
+				
 			}
 		}
 	}
 	
-	/**
-	 * Tells you if there was an error opening the file or not.
-	 * @return true, false
-	 */
-	public Boolean Error(){
-		return error;
+	public Boolean fileExist(){
+		return exist;
 	}
 	
 	public int getSize(){

@@ -204,16 +204,13 @@ class SimulatorInterface extends JFrame implements ActionListener{
 		else if(e.getSource() == this.read){
 			try{
 				if(fileName.getText().equals("")){
-					JOptionPane.showMessageDialog(upload_file, "Please enter a file name.");
+					JOptionPane.showMessageDialog(upload_file, "Please enter a file location.");
 				}
 				else{
-					uploader.setFileName(fileName.getText());
+					uploader.setFileDirectory(fileName.getText());
 					uploader.actionPerformed(e);
 					
-					if(uploader.Error() == true){
-						JOptionPane.showMessageDialog(upload_file, "No such file in directory.");
-					}
-					else{
+					if(uploader.fileExist()){
 						upload_file.dispose();
 						
 						upload_file.dispose();
@@ -222,10 +219,13 @@ class SimulatorInterface extends JFrame implements ActionListener{
 						
 						this.memory.revalidate();
 					}
+					else{
+						JOptionPane.showMessageDialog(upload_file, "No such file in directory.");
+					}
 				}
 			}
 			catch(Exception ex){
-				System.err.format("Exception occurred trying to read '%s'.", fileName);
+				System.err.format("Exception occurred trying to read the file.");
 		    	ex.printStackTrace();
 			}
 		}
