@@ -1,5 +1,8 @@
 package core;
 
+import java.util.List;
+
+import gui.RunDecoder;
 import instructionSet.ALU;
 import instructionSet.DataMovement;
 import instructionSet.JumpsControl;
@@ -18,6 +21,11 @@ public class CU{
 	 * incices 140-155 para el display ASCII
 	 */
 	public static int[] mem = new int[2000];
+	
+	List<String> results;
+	
+	
+	public static String[][] mem_data;
 	
 	/* R0 siempre tiene 0
 	 * R1 es acumulador
@@ -40,16 +48,40 @@ public class CU{
 	private static String address="";
 	private static String constant="";
 	
-	public CU(String op){
-		if(op.equals("Run")){
-			//Run: While(instruccciones) fetch, decode, execute;
-			
-		}
-		else if(op.equals("Step")){
-			
-		}
+	public CU(String op,String[][] mem){
+		this.mem_data = mem;
+		this.results = CU.executeCode(op);
 	}
 	
+	public List<String> getResults(){
+		return this.results;
+	}
+	
+	public static List<String> executeCode(String op){
+		if(op.equals("Run")){
+			int i = 0;
+			while( i < mem_data.length ){
+				CU.fetch(pc);
+				CU.decode(ir);
+				CU.execute();
+				i++;
+			}
+			
+			Registers.setValues(pc, ir, reg);
+			
+			return Registers.getValues();
+		}
+		else if(op.equals("Step")){
+			CU.fetch(pc);
+			CU.decode(ir);
+			CU.execute();
+			
+			Registers.setValues(pc, ir, reg);
+			
+			return Registers.getValues();
+		}
+		return null;
+	}
 	
 	static void fetch (int pc) {
 		String corrector = "";

@@ -81,6 +81,10 @@ public class CodeReader implements ActionListener{
 		return error;
 	}
 	
+	public int getSize(){
+		return this.code.size();
+	}
+	
 	/**
 	 * Gives you the content of the file.
 	 * @return content of the file.

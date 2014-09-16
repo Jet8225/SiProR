@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import core.CU;
+import core.Memory;
 
 /**
  * Main Class
@@ -21,12 +22,10 @@ import core.CU;
  *
  */
 public class RunDecoder {
-	
 	public static void main (String args[]) {
 		
 		// Create a new SimulatorInterface
         new SimulatorInterface();
-		
 	}
 }
 /**
@@ -55,6 +54,8 @@ class SimulatorInterface extends JFrame implements ActionListener{
 	
 	/*Memory*/
 	protected String[] columns = {"Address", "Content"};
+	
+	//mem_data according to file size
 	protected String[][] mem_data = new String[1000][2];
 	protected JTable memory;
 	protected JFrame upload_file;
@@ -141,7 +142,6 @@ class SimulatorInterface extends JFrame implements ActionListener{
 	 * Arranges the memory address array on the panel.
 	 */
 	private void memory(){
-		
 		this.memory = new JTable(mem_data, columns){
 
 			private static final long serialVersionUID = 1L;
@@ -153,18 +153,19 @@ class SimulatorInterface extends JFrame implements ActionListener{
 		    }
 		};
 		
-		this.memory.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		this.memory.setTableHeader(null);
-		
 		int counter = 0;
 		
-		for(int i = 0; i < this.memory.getRowCount(); i++){
+		for(int i = 0; i < this.mem_data.length; i++){
 			String hex = Integer.toHexString(counter);
 			this.memory.isCellEditable(i, 0);
 			counter+=2;
 			
 			this.mem_data[i][0] = ("0000" + hex).substring(hex.length())+":";
 		}
+		
+		this.memory.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		this.memory.setTableHeader(null);
+		
 		
 		JScrollPane scroll = new JScrollPane (memory, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
@@ -185,16 +186,6 @@ class SimulatorInterface extends JFrame implements ActionListener{
 		this.buttons_panel.add(this.run);
 		this.buttons_panel.add(this.step);
 		this.buttons_panel.add(this.exit);
-	}
-	
-	/**
-	 * This method is convenient for deleting all the memory content.
-	 */
-	public void clearMemory(){
-		for(int i = 0; i < this.memory.getRowCount();i++){
-			this.mem_data[i][1] = "";
-		}
-		this.memory.revalidate();
 	}
 	
 	/**
@@ -224,7 +215,21 @@ class SimulatorInterface extends JFrame implements ActionListener{
 					}
 					else{
 						upload_file.dispose();
-						this.copyToMemory(uploader);
+						
+						String[][] temp_mem = new String[uploader.getSize()][2];
+						
+						for(int i = 0; i < uploader.getSize(); i++){
+							for(int j = 0; j < 2; j++){
+								temp_mem[i][j] = this.mem_data[i][j];
+							}
+						}
+						
+						this.mem_data = temp_mem; 
+						
+						Memory.CopyToMemory(uploader, this.mem_data);
+						Memory.setDisplayMemory(this.mem_data);
+						
+						this.memory.revalidate();
 					}
 				}
 			}
@@ -240,19 +245,32 @@ class SimulatorInterface extends JFrame implements ActionListener{
 			
 		}
 		else if( e.getSource() == this.run ){
-			controlUnit = new CU("Run");
+			controlUnit = new CU("Run", Memory.getMemoryContent());
+			
+			for(int i = 0; i < this.regs.length && i < controlUnit.getResults().size(); i++){
+				
+				this.regs[i].setText(controlUnit.getResults().get(i));
+			}
 		}
 		else if( e.getSource() == this.step ){
-			controlUnit = new CU("Step");
+			controlUnit = new CU("Step", Memory.getMemoryContent());
+			
+			for(int i = 0; i < this.regs.length && i < controlUnit.getResults().size(); i++){
+				
+				this.regs[i].setText(controlUnit.getResults().get(i));
+			}
 		}
 		else if( e.getSource() == this.exit ){
 			this.dispose();
-			upload_file.dispose();
 		}
 	} 
 	
+	/**
+	 * This method is responsible for showing the pop-up that is going to ask the user for the file name.
+	 */
 	private void PopUp(){
-		this.clearMemory();
+		Memory.ClearMemory(this.mem_data);
+		this.memory.revalidate();
 		
 		upload_file = new JFrame();;
 		fileName = new JTextField();
@@ -279,12 +297,5 @@ class SimulatorInterface extends JFrame implements ActionListener{
 		upload_file.setResizable(false);
 		upload_file.setVisible(true);
 		upload_file.setMinimumSize(new Dimension(300,200));
-	}
-	
-	public void copyToMemory(CodeReader file_data){
-		for(int i = 0, j = 0; i < this.memory.getRowCount() && j < file_data.getFileContent().size(); i++, j++){
-			this.mem_data[i][1] = file_data.getFileContent().get(j);
-		}
-		this.memory.revalidate();
 	}
 }
