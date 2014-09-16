@@ -124,6 +124,13 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		}
 	}
 	
+	private String addZeros(String s){
+		for(int i = 0; i < s.length(); i++){	
+			s = ("00" + s).substring(s.length());
+		}
+		return s;
+	}
+	
 	/**
 	 * Arranges the peripherals fields on the panel.
 	 */
@@ -136,8 +143,13 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
             public void keyPressed(KeyEvent e){
             	if(e.getKeyCode() == KeyEvent.VK_ENTER){
             		String temp = keyb.getText();
-            		mem_data[64][1] = temp.substring(0,7);
             		
+            		System.out.println(keyb.getText());
+            		
+            		if(temp.length() < 8){
+            			temp = addZeros(temp);
+            		}
+            		mem_data[64][1] = temp.substring(0,7);
             		//Cambiar Array de Ints
             	}
             }
@@ -162,8 +174,6 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					String temp = a_disp.getText();
-					
-					
 				}
 			}
 
@@ -204,13 +214,15 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		});
 		this.per_panel.add(new JLabel("H-Disp"));
 		this.per_panel.add(h_disp);
+		
+		
 		this.per_panel.add(new JLabel("Parallel in"));
 		
 		parallel_in.addKeyListener(new KeyListener(){
 			
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					
+					String temp = parallel_in.getText();
 				}
 			}
 

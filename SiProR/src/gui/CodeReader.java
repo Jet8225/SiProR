@@ -8,8 +8,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 /**
  * This class is in charge of opening and managing the files.
  * @author Keysha Gonzalez
