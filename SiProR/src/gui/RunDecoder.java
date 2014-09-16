@@ -160,7 +160,11 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		a_disp.addKeyListener(new KeyListener(){
 			
 			public void keyPressed(KeyEvent e){
-				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					String temp = a_disp.getText();
+					
+					
+				}
 			}
 
 			@Override
@@ -181,7 +185,9 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		this.h_disp.addKeyListener(new KeyListener(){
 			
 			public void keyPressed(KeyEvent e){
-				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					
+				}
 			}
 
 			@Override
@@ -203,7 +209,9 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		parallel_in.addKeyListener(new KeyListener(){
 			
 			public void keyPressed(KeyEvent e){
-				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					
+				}
 			}
 
 			@Override
@@ -223,7 +231,9 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 		this.parallel_out.addKeyListener(new KeyListener(){
 			
 			public void keyPressed(KeyEvent e){
-				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					
+				}
 			}
 
 			@Override

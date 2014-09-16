@@ -38,8 +38,13 @@ public class Memory {
 	 * @param mem_data the memory array
 	 */
 	public static void CopyToMemory(CodeReader file_data, String[][] mem_data){
+		
 		for(int i = 0, j = 0; i < mem_data.length && j < file_data.getSize(); i++, j++){
 			mem_data[i][1] = file_data.getFileContent().get(j);
+		}
+		
+		for(int i = 0; i < mem_data.length; i++){	
+			mem_data[i][1] = ("0000" + mem_data[i][1]).substring(mem_data[i][1].length());
 		}
 	}
 	
