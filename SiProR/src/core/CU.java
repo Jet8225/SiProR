@@ -47,7 +47,7 @@ public class CU{
 	private static String constant="";
 	
 	public CU(String op,String[][] mems){
-		this.mem_data = mems;
+		mem_data = mems;
 		this.copyData(mems, mem);
 		this.results = CU.executeCode(op);
 	}
