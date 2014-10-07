@@ -25,7 +25,7 @@ public class JumpsControl {
 	 * @param memIndex - the number representation of the address being used. 
 	 */
 	public static void jmpa(int memIndex){
-		CU.pc = CU.mem[memIndex];
+		CU.pc = memIndex;
 	}
 	
 	/**

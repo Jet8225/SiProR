@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -293,6 +294,8 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 						parallel_out.setText(mem_data[66][1]);
 						this.memory.revalidate();
 						
+						controlUnit = new CU(Memory.getMemoryContent());
+						
 						this.keyb.setEditable(true);
 					}
 					else{
@@ -312,7 +315,8 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 			
 		}
 		else if( e.getSource() == this.run ){
-			controlUnit = new CU("Run", Memory.getMemoryContent());
+			controlUnit.setOperation("Run");
+			controlUnit.pushed();
 			
 			for(int i = 0; i < this.regs.length && i < controlUnit.getResults().size(); i++){
 				
@@ -320,7 +324,8 @@ class SimulatorInterface extends JFrame implements ActionListener, KeyListener{
 			}
 		}
 		else if( e.getSource() == this.step ){
-			controlUnit = new CU("Step", Memory.getMemoryContent());
+			controlUnit.setOperation("Step");
+			controlUnit.pushed();
 			
 			for(int i = 0; i < this.regs.length && i < controlUnit.getResults().size(); i++){
 				

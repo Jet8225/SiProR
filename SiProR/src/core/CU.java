@@ -30,6 +30,8 @@ public class CU{
 	 */
 	public static int[] reg = new int[8];
 	
+	public static String operation = "";
+	
 	/* no puede pasar de 2^11 */
 	public static int pc=0;
 	/*no puede se mayor que 16 characteres*/
@@ -46,17 +48,24 @@ public class CU{
 	private static String address="";
 	private static String constant="";
 	
-	public CU(String op,String[][] mems){
+	public CU(String[][] mems){
 		mem_data = mems;
 		this.copyData(mems, mem);
-		this.results = CU.executeCode(op);
+	}
+	
+	public void pushed(){
+		this.results = CU.executeCode(this.operation);
+	}
+	
+	public void setOperation(String op){
+		this.operation = op;
 	}
 	
 	public void copyData(String[][] sMem, int[] nMem){
         for(int i = 0, j = 0; j < sMem.length && i < nMem.length;i+=2, j++){
         	if(!sMem[j][1].isEmpty()){
-        		nMem[i] = Integer.parseInt(sMem[j][1].substring(0,1),16);
-                nMem[i+1] = Integer.parseInt(sMem[j][1].substring(2,3),16);
+        		nMem[i] = Integer.parseInt(sMem[j][1].substring(0,2),16);
+                nMem[i+1] = Integer.parseInt(sMem[j][1].substring(2,4),16);
         	}
         }
         mem = nMem;
@@ -103,7 +112,7 @@ public class CU{
 			String instruction1 = Integer.toBinaryString(mem[pc]);
 			String instruction2 = Integer.toBinaryString(mem[pc+1]);
 			
-			if(instruction1.length() != 8) {
+			if(instruction1.length() < 8) {
 				for(int i=0; i<8-instruction1.length(); i++) {
 					corrector= corrector+0; 
 				}
@@ -111,7 +120,7 @@ public class CU{
 			instruction1 = corrector + instruction1;
 			corrector = "";
 			
-			if(instruction2.length() != 8) {
+			if(instruction2.length() < 8) {
 				for(int i=0; i<8-instruction2.length(); i++) {
 					corrector= corrector+0; 
 				}
@@ -125,131 +134,131 @@ public class CU{
 	static void decode (String ir) {
 		pc +=2;
 		
-		opCode = ir.substring(0,4);
+		opCode = ir.substring(0,5);
 		
 		if(Integer.parseInt(opCode, 2)==0) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			address = ir.substring(8);	
 		}
 		else if(Integer.parseInt(opCode, 2)==1) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			constant = ir.substring(8);
 		}
 		else if(Integer.parseInt(opCode, 2)==2) {
 			constant = ir.substring(5);
 		}
 		else if(Integer.parseInt(opCode, 2)==3) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			address = ir.substring(8);	
 		}
 		else if(Integer.parseInt(opCode, 2)==4) {
 			address = ir.substring(5);
 		}
 		else if(Integer.parseInt(opCode, 2)==5) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 		}
 		else if(Integer.parseInt(opCode, 2)==6) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 		}
 		else if(Integer.parseInt(opCode, 2)==7) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==8) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==9) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			constant = ir.substring(8);
 		}
 		else if(Integer.parseInt(opCode, 2)==10) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			constant = ir.substring(8);
 		}
 		else if(Integer.parseInt(opCode, 2)==11) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==12) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==13) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==14) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 		}
 		else if(Integer.parseInt(opCode, 2)==15) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==16) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==17) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==18) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==19) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
-			Rc = ir.substring(11,13);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
+			Rc = ir.substring(11,14);
 		}
 		else if(Integer.parseInt(opCode, 2)==20) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==21) {
 			address = ir.substring(5);
 		}
 		else if(Integer.parseInt(opCode, 2)==22) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 		}
 		else if(Integer.parseInt(opCode, 2)==23) {
 			address = ir.substring(5);
 		}
 		else if(Integer.parseInt(opCode, 2)==24) {
-			Ra = ir.substring(5,7);
+			Ra = ir.substring(5,8);
 			address = ir.substring(8);
 		}
 		else if(Integer.parseInt(opCode, 2)==25) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==26) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==27) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==28) {
-			Ra = ir.substring(5,7);
-			Rb = ir.substring(8,10);
+			Ra = ir.substring(5,8);
+			Rb = ir.substring(8,11);
 			
 		}
 		else if(Integer.parseInt(opCode, 2)==29) {

@@ -152,7 +152,7 @@ public class ALU {
 			RB = RB+0;
 		}
 		
-		RB = RB.substring(RB.length()-9, RB.length()-1);
+		RB = RB.substring(RB.length()-8, RB.length());
 		
 		CU.reg[ra] = Integer.parseInt(RB,2);
 	}
